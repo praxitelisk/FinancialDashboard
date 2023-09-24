@@ -3,25 +3,21 @@ import time
 import numpy as np
 import pandas as pd
 import yfinance as yf
+import plotly.graph_objects as go
 
 st.set_page_config(page_title="Plotting Demo", page_icon="📈")
 
-st.markdown("# Plotting Demo")
-st.sidebar.header("Plotting Demo")
+st.markdown("# Plotting Stocks")
+st.sidebar.header("Plotting Stocks")
 st.write(
-    """This demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!"""
+    """This page illustrates pertinent information regarding financial assets, plotting and animation with
+Streamlit. Enjoy!"""
 )
-
-import pandas as pd
-import streamlit as st
-import yfinance as yf
 
 
 #The code below writes the header for the web application 
 st.write("""
-# Stock Price Web Application
+### Stock Price Web Application
 
  
 Shown are the stock closing **price** and ***volume*** of Amazon!
@@ -37,6 +33,7 @@ ticker_symbol = 'AMZN'
 tickerDF = yf.download(ticker_symbol, start="2010-01-01")
 
 #columns: Open, High, Low Close, Volume, Dividends and Stock Splits
+st.dataframe(tickerDF)
 
 st.write("""
          ## Stock Closing Price in USD
@@ -49,7 +46,17 @@ st.write("""
 st.line_chart(tickerDF.Volume)
 
 
-st.dataframe(tickerDF)
+# candlestick
+import plotly.graph_objects as go
+
+fig = go.Figure()
+fig.add_trace(go.Candlestick(x=tickerDF.index, 
+open=tickerDF['Open'], 
+high=tickerDF['High'], 
+low=tickerDF['Low'], 
+close=tickerDF['Close']) )
+
+st.plotly_chart(fig)
 
 # Streamlit widgets automatically run the script from top to bottom. Since
 # this button is not connected to any other logic, it just causes a plain
