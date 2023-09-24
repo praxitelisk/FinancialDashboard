@@ -1,6 +1,8 @@
 import streamlit as st
 import time
 import numpy as np
+import pandas as pd
+import yfinance as yf
 
 st.set_page_config(page_title="Plotting Demo", page_icon="📈")
 
@@ -12,20 +14,42 @@ Streamlit. We're generating a bunch of random numbers in a loop for around
 5 seconds. Enjoy!"""
 )
 
-progress_bar = st.sidebar.progress(0)
-status_text = st.sidebar.empty()
-last_rows = np.random.randn(1, 1)
-chart = st.line_chart(last_rows)
+import pandas as pd
+import streamlit as st
+import yfinance as yf
 
-for i in range(1, 101):
-    new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
-    status_text.text("%i%% Complete" % i)
-    chart.add_rows(new_rows)
-    progress_bar.progress(i)
-    last_rows = new_rows
-    time.sleep(0.05)
 
-progress_bar.empty()
+#The code below writes the header for the web application 
+st.write("""
+# Stock Price Web Application
+
+ 
+Shown are the stock closing **price** and ***volume*** of Amazon!
+
+**Period**: May 2012 - May 2022
+         
+""")
+
+ticker_symbol = 'AMZN'
+
+#get ticker data by creating a ticker object
+
+tickerDF = yf.download(ticker_symbol, start="2010-01-01")
+
+#columns: Open, High, Low Close, Volume, Dividends and Stock Splits
+
+st.write("""
+         ## Stock Closing Price in USD
+         """    )
+st.line_chart(tickerDF.Close)
+
+st.write("""
+         ## Stock Volume in USD
+         """    )
+st.line_chart(tickerDF.Volume)
+
+
+st.dataframe(tickerDF)
 
 # Streamlit widgets automatically run the script from top to bottom. Since
 # this button is not connected to any other logic, it just causes a plain
