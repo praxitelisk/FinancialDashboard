@@ -1,5 +1,6 @@
 import streamlit as st
 import time
+import datetime
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -7,30 +8,54 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Plotting Demo", page_icon="📈")
 
-st.markdown("# Plotting Stocks")
-st.sidebar.header("Plotting Stocks")
+st.markdown("# Plotting Stock Data")
+
+st.sidebar.write("Stock name:")
+ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', 'AAPL')
+
+tickers = yf.Tickers(ticker_symbol)
+equity_name =  tickers.tickers[ticker_symbol].info['shortName']
+
+st.sidebar.write("In case you need to search for stocks' names")
+st.sidebar.link_button("Search stock names in Yahoo finance site", "https://finance.yahoo.com")
+
+
+
+today = datetime.datetime.now()
+earliest_year = today.year - 5
+earliest_date = datetime.date(earliest_year, 1, 1)
+
+dates = st.sidebar.date_input(
+    "Select time period of historical data",
+    (datetime.date(earliest_year, 1, 1), today),
+    earliest_date,
+    today,
+    format="YYYY.MM.DD",
+)
+
+
 st.write(
-    """This page illustrates pertinent information regarding financial assets, plotting and animation with
+    """This page illustrates pertinent information regarding financial assets and plotting with
 Streamlit. Enjoy!"""
 )
 
 
 #The code below writes the header for the web application 
 st.write("""
-### Stock Price Web Application
+### Financial Assets - Historical Data
 
- 
-Shown are the stock closing **price** and ***volume*** of Amazon!
+##### Financial Asset we are interested in: """+equity_name+"""
 
-**Period**: May 2012 - May 2022
-         
-""")
+**Period**:"""+str(dates))
 
-ticker_symbol = 'AMZN'
+earliest_date = dates[0]
+latest_date = dates[1]
 
 #get ticker data by creating a ticker object
 
-tickerDF = yf.download(ticker_symbol, start="2010-01-01")
+tickerDF = yf.download(ticker_symbol, 
+start=''+str(dates[0].year)+'-'+str(dates[0].month)+'-'+str(dates[0].day), 
+end=''+str(dates[1].year)+'-'+str(dates[1].month)+'-'+str(dates[1].day))
 
 #columns: Open, High, Low Close, Volume, Dividends and Stock Splits
 st.dataframe(tickerDF)
@@ -47,6 +72,9 @@ st.line_chart(tickerDF.Volume)
 
 
 # candlestick
+st.write("""
+         ## Stock Closing Price candlestick
+         """    )
 import plotly.graph_objects as go
 
 fig = go.Figure()
