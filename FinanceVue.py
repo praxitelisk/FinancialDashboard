@@ -1,13 +1,20 @@
 import streamlit as st
+from PIL import Image
 
 st.set_page_config(
-    page_title="StockML",
-    page_icon="👋",
+    page_title="FinanceVue",
+    page_icon="🏛️",
 )
 
-st.write("# Welcome to Streamlit! 👋")
+st.write("# Welcome to FinanceVue! 🏛️")
 
-st.sidebar.success("Select a demo above.")
+st.write("## Created and designed by Praxitelis-Nikolaos Kouroupetroglou! 👋")
+
+
+image = Image.open('images/IHU_logo.png')
+
+st.image(image, caption='International Hellenic Univesity')
+
 
 st.markdown(
     """
@@ -17,7 +24,7 @@ st.markdown(
     of what Streamlit can do!
     ### Want to learn more?
     - Check out [streamlit.io](https://streamlit.io)
-    - Jump into our [documentation](https://docs.streamlit.io)
+    - Jump into [documentation](https://docs.streamlit.io)
     - Ask a question in our [community
         forums](https://discuss.streamlit.io)
     ### See more complex demos
