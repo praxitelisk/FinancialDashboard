@@ -6,7 +6,7 @@ import pandas as pd
 import yfinance as yf
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="Plotting Profiling", page_icon="📈")
+st.set_page_config(page_title="Dataframe Profiling", page_icon="📈")
 
 st.markdown("# Plotting Stock Data")
 st.sidebar.header("Stock Data Profiling")
