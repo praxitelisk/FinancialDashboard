@@ -6,10 +6,12 @@ st.set_page_config(
     page_icon="🏛️",
 )
 
-st.write("# Welcome to FinanceVue! 🏛️")
+st.write("# Welcome to FinanceVue! 🗠")
 
-st.write("## Created and designed by Praxitelis-Nikolaos Kouroupetroglou! 👋")
+st.markdown("FinanceVue is a financial stock dashboard that provides a comprehensive overview of key financial and market data related to stocks and securities. It is designed to help investors, traders, and financial professionals monitor and analyze stock market performance, make informed decisions, and track their investments. A stock dashboard typically includes various financial and market indicators, charts, and data presented in a user-friendly format.")
 
+st.markdown("### Created and designed by [Praxitelis-Nikolaos Kouroupetroglou](https://praxitelisk.github.io/) 👋")
+st.markdown("#### Supervised by: Prof. [Alkiviadis Tsimpiris](http://teachers.cm.ihu.gr/tsimpiris/index.php/en/) 👀")
 
 image = Image.open('images/IHU_logo.png')
 
