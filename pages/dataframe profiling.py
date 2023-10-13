@@ -6,9 +6,10 @@ import pandas as pd
 import yfinance as yf
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="Plotting Demo", page_icon="📈")
+st.set_page_config(page_title="Plotting Profiling", page_icon="📈")
 
 st.markdown("# Plotting Stock Data")
+st.sidebar.header("Stock Data Profiling")
 
 st.sidebar.write("Stock name:")
 ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', 'AAPL')
@@ -52,7 +53,6 @@ earliest_date = dates[0]
 latest_date = dates[1]
 
 #get ticker data by creating a ticker object
-
 tickerDF = yf.download(ticker_symbol, 
 start=''+str(dates[0].year)+'-'+str(dates[0].month)+'-'+str(dates[0].day), 
 end=''+str(dates[1].year)+'-'+str(dates[1].month)+'-'+str(dates[1].day))
