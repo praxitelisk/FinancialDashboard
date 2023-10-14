@@ -10,6 +10,7 @@ import plotly.express  as ex
 
 st.set_page_config(page_title="Dataframe Profiling", page_icon="📈")
 
+# sidebar
 st.sidebar.header("Financial Stock Data Profiling")
 
 st.sidebar.write("Stock name:")
@@ -44,7 +45,7 @@ equity_name =  tickers.tickers[ticker_symbol].info['shortName']
 with st.container():
     st.markdown("""## Info and historical Data 📜""")
     
-    tab1, tab2 = st.tabs(["Stock Info", "Historical Data"])
+    tab1, tab2, tab3 = st.tabs(["Stock Info", "Company Summary", "Historical Data"])
     
     with tab1:
         st.markdown("## Stock info: ")
@@ -56,8 +57,11 @@ with st.container():
         st.markdown("- Industry: "+tickers.tickers[ticker_symbol].info['industry'])
         st.markdown("- Sector: "+tickers.tickers[ticker_symbol].info['sector'])
         
-    
     with tab2:
+        st.markdown("## Company's summary: ")
+        st.markdown("- "+tickers.tickers[ticker_symbol].info['longBusinessSummary'])
+    
+    with tab3:
         st.markdown("## Historical Data timeline: ")
         st.markdown(str(dates))
         earliest_date = dates[0]
@@ -124,50 +128,118 @@ with st.container():
 
 
 # linechart for all features
-col1, col2, col3 = st.columns(3)
-with col1:
-   st.write("#### Stock's Open price in "+ financialCurrency)
-   st.line_chart(tickerDF["Open"])
+with st.container():
+    st.markdown("## Stock price movements 📊")
+    
+    tab1, tab2 = st.tabs(["Scatterplots", "Violinplots"])
+    
+    with tab1:
+        col1, col2, col3 = st.columns(3)
+        with col1:
+           st.write("#### Stock's Open price in "+ financialCurrency)
+           st.line_chart(tickerDF["Open"])
 
-with col2:
-   st.write("#### Stock's High price in "+ financialCurrency)
-   st.line_chart(tickerDF["High"])
+        with col2:
+           st.write("#### Stock's High price in "+ financialCurrency)
+           st.line_chart(tickerDF["High"])
 
-with col3:
-   st.write("#### Stock's Low price in "+ financialCurrency)
-   st.line_chart(tickerDF["Low"])
-   
+        with col3:
+           st.write("#### Stock's Low price in "+ financialCurrency)
+           st.line_chart(tickerDF["Low"])
+           
 
-col1, col2, col3 = st.columns(3)
-with col1:
-   st.write("#### Stock's Close price in "+ financialCurrency)
-   st.line_chart(tickerDF["Close"])
+        col1, col2, col3 = st.columns(3)
+        with col1:
+           st.write("#### Stock's Close price in "+ financialCurrency)
+           st.line_chart(tickerDF["Close"])
 
-with col2:
-   st.write("#### Stock's Adj Close price in "+ financialCurrency)
-   st.line_chart(tickerDF["Adj Close"])
+        with col2:
+           st.write("#### Stock's Adj Close price in "+ financialCurrency)
+           st.line_chart(tickerDF["Adj Close"])
 
-with col3:
-   st.write("#### Stock's Volume over time")
-   st.line_chart(tickerDF["Volume"])
+        with col3:
+           st.write("#### Stock's Volume over time")
+           st.line_chart(tickerDF["Volume"])
+    
+    with tab2:
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            fig = ex.violin(tickerDF, y="Open", box=True, # draw box plot inside the violin
+                    points='all', # can be 'outliers', or False
+                   )
+            st.plotly_chart(fig, use_container_width=True)
+
+        with col2:
+            fig = ex.violin(tickerDF, y="High", box=True, # draw box plot inside the violin
+                    points='all', # can be 'outliers', or False
+                   )
+            st.plotly_chart(fig, use_container_width=True)
+
+        with col3:
+            fig = ex.violin(tickerDF, y="Low", box=True, # draw box plot inside the violin
+                    points='all', # can be 'outliers', or False
+                   )
+            st.plotly_chart(fig, use_container_width=True)
+           
+
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            fig = ex.violin(tickerDF, y="Close", box=True, # draw box plot inside the violin
+                    points='all', # can be 'outliers', or False
+                   )
+            st.plotly_chart(fig, use_container_width=True)
+
+        with col2:
+            fig = ex.violin(tickerDF, y="Adj Close", box=True, # draw box plot inside the violin
+                    points='all', # can be 'outliers', or False
+                   )
+            st.plotly_chart(fig, use_container_width=True)
+
+        with col3:
+            fig = ex.violin(tickerDF, y="Volume", box=True, # draw box plot inside the violin
+                    points='all', # can be 'outliers', or False
+                   )
+            st.plotly_chart(fig, use_container_width=True)
    
    
 # Create a correlation plot
 # https://stackoverflow.com/questions/72195177/correlation-matrix-in-plotly
-st.write("#### Correlations between stock's features")
-df_corr = tickerDF.corr()
+with st.container():
+    st.write("## Bivariate analysis 📉")
+    
+    tab1, tab2, tab3 = st.tabs(["Scatterplots", "kdeplots", "Correlation Coefficient"])
+    
+    with tab1:
+        st.markdown("#### Stock price movements Scatterplots")
+        fig = ex.scatter_matrix(tickerDF)
+        st.plotly_chart(fig, use_container_width=True)
+        
+    with tab2:
+        st.markdown("#### Stock price movements Kdeplots")
+        
+        options = st.multiselect('Choose 2 features', ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'],
+        default=["Open", "Close"], max_selections=2)
+        
+        fig = ex.density_contour(tickerDF, x=options[0], y=options[1], marginal_x="histogram", marginal_y="histogram")
+        st.plotly_chart(fig, use_container_width=True)
+        
+    with tab3:
 
-fig = go.Figure()
-fig.add_trace(
-    go.Heatmap(
-        x = df_corr.columns,
-        y = df_corr.index,
-        z = np.array(df_corr),
-        text=df_corr.values,
-        texttemplate='%{text:.2f}'
-    )
-)
-st.plotly_chart(fig)
+        st.write("#### Correlations between stock's movements")
+        df_corr = tickerDF.corr()
+
+        fig = go.Figure()
+        fig.add_trace(
+            go.Heatmap(
+                x = df_corr.columns,
+                y = df_corr.index,
+                z = np.array(df_corr),
+                text=df_corr.values,
+                texttemplate='%{text:.2f}'
+            )
+        )
+        st.plotly_chart(fig)
+
 
 # Streamlit widgets automatically run the script from top to bottom. Since
 # this button is not connected to any other logic, it just causes a plain
