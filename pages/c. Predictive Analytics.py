@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import StandardScaler
 
-st.set_page_config(page_title="Stock Data Forecasting", page_icon="📊")
+st.set_page_config(page_title="Stock Price Forecasting", page_icon="🤖")
 
 ### sidebar
 st.sidebar.header("Stock Data Forecasting")
@@ -52,7 +52,7 @@ main_df = yf.download(ticker_symbol,
 start=''+str(dates[0].year)+'-'+str(dates[0].month)+'-'+str(dates[0].day), 
 end=''+str(dates[1].year)+'-'+str(dates[1].month)+'-'+str(dates[1].day))
 
-st.dataframe(main_df.tail(5))
+st.dataframe(main_df.sort_index(ascending=False))
 
 # prepare the targets
 main_df['Open_target'] = main_df['Open'].shift(-1)
@@ -65,7 +65,9 @@ main_df['Volume_target'] = main_df['Volume'].shift(-1)
 # select model for forecasting
 option = st.selectbox(
     'Which model should make the forecasts?',
-    ('Random Forest', 'XGBoost', 'kNN', 'SVM'))
+    ('Random Forest', 'XGBoost', 'kNN', 'SVM'),
+    index=None,
+    placeholder="Select contact method...",)
 
 st.write('You selected:', option)
 
@@ -208,40 +210,45 @@ def simulate_randon_forest_forecasting(main_df, days_for_forecasting):
 
 
 forecasted_df = pd.DataFrame()
+if option is None:
+    st.markdown("Select a model to produce forecasts")
 
-if option == 'Random Forest':
+elif option == 'Random Forest':
     forecasted_df = simulate_randon_forest_forecasting(main_df.copy(), days_for_forecasting)
 
-forecasted_df.tail(days_for_forecasting)
+    forecasted_df.tail(days_for_forecasting)
 
-# print forecasts
-st.markdown("### Forecasts made by: "+option)
-st.dataframe(forecasted_df[["Open", "High", "Low", "Close", "Adj Close", "Volume"]].tail(days_for_forecasting))
-
-
-# Visualise Forecasts
-st.markdown("### Visualise Forecasts")
-
-# Create a figure
-fig, ax = plt.subplots()
-
-# Plot the forecasts with a scatterplot
-ax.scatter(forecasted_df.index[-days_for_forecasting:], forecasted_df['Close'].tail(days_for_forecasting), s=10, marker='o', color='blue', alpha=0.65)
-ax.plot(forecasted_df.index[-days_for_forecasting:], forecasted_df['Close'].tail(days_for_forecasting), color='blue', linewidth=2, alpha=0.65)
+    # print forecasts
+    st.markdown("### Forecasts made by: "+option)
+    st.dataframe(forecasted_df[["Open", "High", "Low", "Close", "Adj Close", "Volume"]].tail(days_for_forecasting))
 
 
-# Plot the historical data with a lineplot
-historical_data_plot_interval = 10
-ax.scatter(forecasted_df.index[len(main_df)-historical_data_plot_interval:len(main_df)], forecasted_df['Close'][len(main_df)-historical_data_plot_interval:len(main_df)], s=10, marker='x', color='red', alpha=0.5)
-ax.plot(forecasted_df.index[len(main_df)-historical_data_plot_interval:len(main_df)], forecasted_df['Close'][len(main_df)-historical_data_plot_interval:len(main_df)], color='red', linewidth=2, alpha=0.5)
+    # Visualise Forecasts
+    st.markdown("### Visualise Forecasts")
 
-# Rotating X-axis labels
-plt.xticks(rotation = 75)
+    # Create a figure
+    fig, ax = plt.subplots()
 
-# Set the axis labels and title
-ax.set_xlabel('Date')
-ax.set_ylabel('Close Price')
-ax.set_title('Scatterplot and Lineplot of {}'.format('Close price'))
-st.pyplot(fig)
+    # Plot the forecasts with a scatterplot
+    ax.scatter(forecasted_df.index[-days_for_forecasting:], forecasted_df['Close'].tail(days_for_forecasting), s=10, marker='o', color='blue', alpha=0.65)
+    ax.plot(forecasted_df.index[-days_for_forecasting:], forecasted_df['Close'].tail(days_for_forecasting), color='blue', linewidth=2, alpha=0.65)
+
+
+    # Plot the historical data with a lineplot
+    historical_data_plot_interval = 10
+    ax.scatter(forecasted_df.index[len(main_df)-historical_data_plot_interval:len(main_df)], forecasted_df['Close'][len(main_df)-historical_data_plot_interval:len(main_df)], s=10, marker='x', color='red', alpha=0.5)
+    ax.plot(forecasted_df.index[len(main_df)-historical_data_plot_interval:len(main_df)], forecasted_df['Close'][len(main_df)-historical_data_plot_interval:len(main_df)], color='red', linewidth=2, alpha=0.5)
+
+    # Rotating X-axis labels
+    plt.xticks(rotation = 75)
+
+    # Set the axis labels and title
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Close Price')
+    ax.set_title('Scatterplot and Lineplot of {}'.format('Close price'))
+    st.pyplot(fig)
+    
+else:
+    st.markdown("#### XGBoost, kNN, SVM and the rest of the models will be updated soon")
 
 
