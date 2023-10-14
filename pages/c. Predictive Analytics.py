@@ -67,7 +67,7 @@ option = st.selectbox(
     'Which model should make the forecasts?',
     ('Random Forest', 'XGBoost', 'kNN', 'SVM'),
     index=None,
-    placeholder="Select contact method...",)
+    placeholder="Select model to create forecasts",)
 
 st.write('You selected:', option)
 
