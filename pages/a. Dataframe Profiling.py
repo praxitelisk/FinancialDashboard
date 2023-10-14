@@ -10,8 +10,7 @@ import plotly.express  as ex
 
 st.set_page_config(page_title="Dataframe Profiling", page_icon="📈")
 
-st.markdown("# Plotting Stock Data")
-st.sidebar.header("Stock Data Profiling")
+st.sidebar.header("Financial Stock Data Profiling")
 
 st.sidebar.write("Stock name:")
 ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', 'AAPL')
@@ -20,7 +19,6 @@ tickers = yf.Tickers(ticker_symbol)
 
 st.sidebar.write("In case you need to search for stocks' names")
 st.sidebar.link_button("Search stock names in Yahoo finance site", "https://finance.yahoo.com")
-
 
 
 today = datetime.datetime.now()
@@ -35,62 +33,94 @@ dates = st.sidebar.date_input(
     format="YYYY.MM.DD",
 )
 
-
-st.write(
-    """This page illustrates pertinent information regarding financial assets and plotting with Streamlit. Enjoy!"""
+with st.container():
+    st.markdown("# Inspecting Stock Data")
+    st.write(
+    """This page illustrates pertinent information regarding financial assets and plotting with Streamlit. Enjoy! 🧐"""
 )
-
-
-#The code below writes the header for the web application 
+ 
 equity_name =  tickers.tickers[ticker_symbol].info['shortName']
-st.write("""
-### Financial Assets - Historical Data
 
-##### Financial Asset we are interested in: """+equity_name+"""
+with st.container():
+    st.markdown("""## Info and historical Data 📜""")
+    
+    tab1, tab2 = st.tabs(["Stock Info", "Historical Data"])
+    
+    with tab1:
+        st.markdown("## Stock info: ")
+        st.markdown("- Full stock name: "+equity_name)
+        st.markdown("- Address: "+tickers.tickers[ticker_symbol].info['address1'])
+        st.markdown("- City: "+tickers.tickers[ticker_symbol].info['city'])
+        st.markdown("- Country: "+tickers.tickers[ticker_symbol].info['country'])
+        st.markdown("- Website: "+tickers.tickers[ticker_symbol].info['website'])
+        st.markdown("- Industry: "+tickers.tickers[ticker_symbol].info['industry'])
+        st.markdown("- Sector: "+tickers.tickers[ticker_symbol].info['sector'])
+        
+    
+    with tab2:
+        st.markdown("## Historical Data timeline: ")
+        st.markdown(str(dates))
+        earliest_date = dates[0]
+        latest_date = dates[1]
 
-**Period**:"""+str(dates))
+        #get ticker data by creating a ticker object
+        tickerDF = yf.download(ticker_symbol, 
+        start=''+str(earliest_date.year)+'-'+str(earliest_date.month)+'-'+str(earliest_date.day), 
+        end=''+str(latest_date.year)+'-'+str(latest_date.month)+'-'+str(latest_date.day))
 
-earliest_date = dates[0]
-latest_date = dates[1]
+        #columns: Open, High, Low, Close, Adj Close and Volume
+        st.dataframe(tickerDF)
 
-#get ticker data by creating a ticker object
-tickerDF = yf.download(ticker_symbol, 
-start=''+str(dates[0].year)+'-'+str(dates[0].month)+'-'+str(dates[0].day), 
-end=''+str(dates[1].year)+'-'+str(dates[1].month)+'-'+str(dates[1].day))
-
-#columns: Open, High, Low, Close, Adj Close and Volume
-st.dataframe(tickerDF)
-
-# close price time series
+# get financial currency
 financialCurrency =  tickers.tickers[ticker_symbol].info['financialCurrency']
-st.write("## Stock Closing Price in " + financialCurrency)
-st.line_chart(tickerDF.Close)
 
-# candlestick plot
-st.write("## Stock Closing Price candlestick plot in "+ financialCurrency)
-import plotly.graph_objects as go
+# close price tabs and plots
+with st.container():
 
-fig = go.Figure()
-fig.add_trace(go.Candlestick(x=tickerDF.index, 
-open=tickerDF['Open'], 
-high=tickerDF['High'], 
-low=tickerDF['Low'], 
-close=tickerDF['Close']) )
+    st.write("## Stock's Closing Price plots 💸")
 
-st.plotly_chart(fig)
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Time Series", "Candlestick plot", 
+    "Annual evolution", "Histogram", "Violin plot"])
+       
+    with tab1:
+        st.write("### Stock Closing Price in " + financialCurrency)
+        st.line_chart(tickerDF.Close)
+        
+    with tab2:
+        # candlestick plot
+        st.write("### Stock Closing Price candlestick plot in "+ financialCurrency)
+        import plotly.graph_objects as go
 
-# price over years
-mean_closing_price_per_year = tickerDF.groupby(tickerDF.index.year)['Close'].mean()
+        fig = go.Figure()
+        fig.add_trace(go.Candlestick(x=tickerDF.index, 
+        open=tickerDF['Open'], 
+        high=tickerDF['High'], 
+        low=tickerDF['Low'], 
+        close=tickerDF['Close']) )
 
-# Plot the result
-st.write("#### Mean closing price over the years in "+ financialCurrency)
-st.bar_chart(mean_closing_price_per_year)
+        st.plotly_chart(fig)
 
+    with tab3:
+        # price over years
+        mean_closing_price_per_year = tickerDF.groupby(tickerDF.index.year)['Close'].mean()
 
-# price histogram
-st.write("#### Closing price histogram in "+ financialCurrency)
-fig = ex.histogram(tickerDF, x="Close", nbins=20)
-st.plotly_chart(fig, use_container_width=True)
+        # Plot the result
+        st.write("### Mean closing price over the years in "+ financialCurrency)
+        st.bar_chart(mean_closing_price_per_year)
+        
+    with tab4:
+        # price histogram
+        st.write("### Closing price histogram in "+ financialCurrency)
+        fig = ex.histogram(tickerDF, x="Close", nbins=20)
+        st.plotly_chart(fig, use_container_width=True)
+        
+    with tab5:
+        # closing price violinplot
+        fig = ex.violin(tickerDF, y="Close", box=True, # draw box plot inside the violin
+                points='all', # can be 'outliers', or False
+               )
+        st.plotly_chart(fig, use_container_width=True)
+
 
 
 # linechart for all features
@@ -118,7 +148,7 @@ with col2:
    st.line_chart(tickerDF["Adj Close"])
 
 with col3:
-   st.write("#### Stock's Volume price in "+ financialCurrency)
+   st.write("#### Stock's Volume over time")
    st.line_chart(tickerDF["Volume"])
    
    
