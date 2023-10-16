@@ -212,7 +212,9 @@ with st.container():
     with tab1:
         st.markdown("#### Stock price movements Scatterplots")
         fig = ex.scatter_matrix(tickerDF)
-        st.plotly_chart(fig, use_container_width=True)
+        fig.update_layout(height=600, width=850)
+
+        st.plotly_chart(fig)
         
     with tab2:
         st.markdown("#### Stock price movements Kdeplots")
@@ -239,9 +241,3 @@ with st.container():
             )
         )
         st.plotly_chart(fig)
-
-
-# Streamlit widgets automatically run the script from top to bottom. Since
-# this button is not connected to any other logic, it just causes a plain
-# rerun.
-st.button("Re-run")
