@@ -40,7 +40,7 @@ with st.container():
     """This page illustrates pertinent information regarding financial assets and plotting with Streamlit. Enjoy! 🧐"""
 )
  
-equity_name =  tickers.tickers[ticker_symbol].info['shortName']
+# equity_name =  tickers.tickers[ticker_symbol].info['shortName']
 
 with st.container():
     st.markdown("""## Info and historical Data 📜""")
@@ -49,17 +49,19 @@ with st.container():
     
     with tab1:
         st.markdown("## Stock info: ")
-        st.markdown("- Full stock name: "+equity_name)
-        st.markdown("- Address: "+tickers.tickers[ticker_symbol].info['address1'])
-        st.markdown("- City: "+tickers.tickers[ticker_symbol].info['city'])
-        st.markdown("- Country: "+tickers.tickers[ticker_symbol].info['country'])
-        st.markdown("- Website: "+tickers.tickers[ticker_symbol].info['website'])
-        st.markdown("- Industry: "+tickers.tickers[ticker_symbol].info['industry'])
-        st.markdown("- Sector: "+tickers.tickers[ticker_symbol].info['sector'])
+        st.markdown("### Due to API issues this page is not available at the moment")
+        # st.markdown("- Full stock name: "+equity_name)
+        # st.markdown("- Address: "+tickers.tickers[ticker_symbol].info['address1'])
+        # st.markdown("- City: "+tickers.tickers[ticker_symbol].info['city'])
+        # st.markdown("- Country: "+tickers.tickers[ticker_symbol].info['country'])
+        # st.markdown("- Website: "+tickers.tickers[ticker_symbol].info['website'])
+        # st.markdown("- Industry: "+tickers.tickers[ticker_symbol].info['industry'])
+        # st.markdown("- Sector: "+tickers.tickers[ticker_symbol].info['sector'])
         
     with tab2:
         st.markdown("## Company's summary: ")
-        st.markdown("- "+tickers.tickers[ticker_symbol].info['longBusinessSummary'])
+        st.markdown("### Due to API issues this page is not available at the moment")
+        # st.markdown("- "+tickers.tickers[ticker_symbol].info['longBusinessSummary'])
     
     with tab3:
         st.markdown("## Historical Data timeline: ")
@@ -76,7 +78,7 @@ with st.container():
         st.dataframe(tickerDF)
 
 # get financial currency
-financialCurrency =  tickers.tickers[ticker_symbol].info['financialCurrency']
+# financialCurrency =  tickers.tickers[ticker_symbol].info['financialCurrency']
 
 # close price tabs and plots
 with st.container():
@@ -87,12 +89,14 @@ with st.container():
     "Annual evolution", "Histogram", "Violin plot"])
        
     with tab1:
-        st.write("### Stock Closing Price in " + financialCurrency)
+        # st.write("### Stock Closing Price in " + financialCurrency)
+        st.write("### Stock Closing Price")
         st.line_chart(tickerDF.Close)
         
     with tab2:
         # candlestick plot
-        st.write("### Stock Closing Price candlestick plot in "+ financialCurrency)
+        # st.write("### Stock Closing Price candlestick plot in "+ financialCurrency)
+        st.write("### Stock Closing Price candlestick plot in ")
         import plotly.graph_objects as go
 
         fig = go.Figure()
@@ -109,12 +113,14 @@ with st.container():
         mean_closing_price_per_year = tickerDF.groupby(tickerDF.index.year)['Close'].mean()
 
         # Plot the result
-        st.write("### Mean closing price over the years in "+ financialCurrency)
+        # st.write("### Mean closing price over the years in "+ financialCurrency)
+        st.write("### Mean closing price over the years")
         st.bar_chart(mean_closing_price_per_year)
         
     with tab4:
         # price histogram
-        st.write("### Closing price histogram in "+ financialCurrency)
+        # st.write("### Closing price histogram in "+ financialCurrency)
+        st.write("### Closing price histogram")
         fig = ex.histogram(tickerDF, x="Close", nbins=20)
         st.plotly_chart(fig, use_container_width=True)
         
@@ -136,25 +142,30 @@ with st.container():
     with tab1:
         col1, col2, col3 = st.columns(3)
         with col1:
-           st.write("#### Stock's Open price in "+ financialCurrency)
+           # st.write("#### Stock's Open price in "+ financialCurrency)
+           st.write("#### Stock's Open price")
            st.line_chart(tickerDF["Open"])
 
         with col2:
-           st.write("#### Stock's High price in "+ financialCurrency)
+           # st.write("#### Stock's High price in "+ financialCurrency)
+           st.write("#### Stock's High price")
            st.line_chart(tickerDF["High"])
 
         with col3:
-           st.write("#### Stock's Low price in "+ financialCurrency)
+           # st.write("#### Stock's Low price in "+ financialCurrency)
+           st.write("#### Stock's Low price")
            st.line_chart(tickerDF["Low"])
            
 
         col1, col2, col3 = st.columns(3)
         with col1:
-           st.write("#### Stock's Close price in "+ financialCurrency)
+           # st.write("#### Stock's Close price in "+ financialCurrency)
+           st.write("#### Stock's Close price")
            st.line_chart(tickerDF["Close"])
 
         with col2:
-           st.write("#### Stock's Adj Close price in "+ financialCurrency)
+           # st.write("#### Stock's Adj Close price in "+ financialCurrency)
+           st.write("#### Stock's Adj Close price")
            st.line_chart(tickerDF["Adj Close"])
 
         with col3:

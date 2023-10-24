@@ -20,7 +20,7 @@ st.sidebar.write("Type the stock name:")
 ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for forecasting', 'AAPL')
 
 tickers = yf.Tickers(ticker_symbol)
-equity_name =  tickers.tickers[ticker_symbol].info['shortName']
+# equity_name =  tickers.tickers[ticker_symbol].info['shortName']
 
 st.sidebar.write("In case you need to search for stocks' names")
 st.sidebar.link_button("Search stock names in Yahoo finance site", "https://finance.yahoo.com")
