@@ -14,7 +14,14 @@ st.set_page_config(page_title="Dataframe Profiling", page_icon="📈")
 st.sidebar.header("Financial Stock Data Profiling")
 
 st.sidebar.write("Stock name:")
-ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', 'AAPL')
+
+if "ticker_symbol" not in st.session_state:
+    # set the initial default value of the slider widget
+    st.session_state.ticker_symbol = 'AAPL'
+
+
+ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', st.session_state.ticker_symbol)
+st.session_state.ticker_symbol = ticker_symbol
 
 tickers = yf.Tickers(ticker_symbol)
 

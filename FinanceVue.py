@@ -6,6 +6,10 @@ st.set_page_config(
     page_icon="🏛️",
 )
 
+if "ticker_symbol" not in st.session_state:
+    # set the initial default value of the slider widget
+    st.session_state.ticker_symbol = 'AAPL'
+
 st.write("# Welcome to FinanceVue! 🗠")
 
 st.markdown("FinanceVue is a financial stock dashboard that provides a comprehensive overview of key financial and market data related to stocks and securities. It is designed to help investors, traders, and financial professionals monitor and analyze stock market performance, make informed decisions, and track their investments. A stock dashboard typically includes various financial and market indicators, charts, and data presented in a user-friendly format.")
