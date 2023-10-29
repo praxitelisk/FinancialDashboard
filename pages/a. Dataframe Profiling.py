@@ -1,9 +1,11 @@
+import os
 import streamlit as st
 import numpy as np
 import pandas as pd
 import yfinance as yf
 import time
 import datetime
+import tempfile
 
 import plotly.graph_objects as go
 import plotly.express  as ex
@@ -13,8 +15,34 @@ st.set_page_config(page_title="Dataframe Profiling", page_icon="📈")
 # sidebar
 st.sidebar.header("Financial Stock Data Profiling")
 
+def create_temp_file():
+    temp_dir = tempfile.gettempdir()
+    temp_file_path = temp_dir + '/my_temp_file.txt'
+
+    # Check if the file already exists
+    if not os.path.exists(temp_file_path):
+        # Create the temporary file
+        with open(temp_file_path, 'w') as file:
+            file.write("")
+
+    return temp_file_path
+
+temp_file_path = create_temp_file()
+
+# Display the contents of the temporary file (if it exists)
+if 'temp_file_path' in locals():
+    with open(temp_file_path, 'r') as file:
+        file_content = file.read()
+
 st.sidebar.write("Stock name:")
-ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', 'AAPL')
+if file_content == '':
+    ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', 'AAPL')
+    
+else:
+    ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', file_content)
+
+with open(temp_file_path, 'w') as file:
+    file.write(ticker_symbol)
 
 tickers = yf.Tickers(ticker_symbol)
 
@@ -23,7 +51,7 @@ st.sidebar.link_button("Search stock names in Yahoo finance site", "https://fina
 
 
 today = datetime.datetime.now()
-earliest_year = today.year - 5
+earliest_year = today.year - 16
 earliest_date = datetime.date(earliest_year, 1, 1)
 
 dates = st.sidebar.date_input(
