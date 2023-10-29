@@ -30,7 +30,7 @@ st.sidebar.link_button("Search stock names in Yahoo finance site", "https://fina
 
 
 today = datetime.datetime.now()
-earliest_year = today.year - 5
+earliest_year = today.year - 16
 earliest_date = datetime.date(earliest_year, 1, 1)
 
 dates = st.sidebar.date_input(
