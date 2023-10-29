@@ -13,11 +13,17 @@ from sklearn.preprocessing import StandardScaler
 
 st.set_page_config(page_title="Stock Price Forecasting", page_icon="🤖")
 
+
+if "ticker_symbol" not in st.session_state:
+    # set the initial default value of the slider widget
+    st.session_state.ticker_symbol = 'AAPL'
+
 ### sidebar
 st.sidebar.header("Stock Data Forecasting")
 
 st.sidebar.write("Type the stock name:")
-ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for forecasting', 'AAPL')
+ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', st.session_state.ticker_symbol)
+st.session_state.ticker_symbol = ticker_symbol
 
 tickers = yf.Tickers(ticker_symbol)
 # equity_name =  tickers.tickers[ticker_symbol].info['shortName']
