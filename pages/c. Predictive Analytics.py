@@ -62,9 +62,9 @@ st.write(
 )
 
 #get ticker data by creating a ticker object
-main_df = yf.download(ticker_symbol, 
-start=''+str(dates[0].year)+'-'+str(dates[0].month)+'-'+str(dates[0].day), 
-end=''+str(dates[1].year)+'-'+str(dates[1].month)+'-'+str(dates[1].day))
+end = datetime.datetime.now()
+start = datetime.datetime(end.year - 9, end.month, end.day)
+main_df = yf.download(ticker_symbol, start, end)
 
 st.dataframe(main_df.sort_index(ascending=False))
 
