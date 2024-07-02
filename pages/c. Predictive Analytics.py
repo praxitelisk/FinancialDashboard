@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import yfinance as yf
-from datetime import datetime
+import datetime
 from datetime import timedelta
 
 import matplotlib.pyplot as plt
@@ -33,21 +33,14 @@ st.sidebar.write("In case you need to search for stocks' names")
 st.sidebar.link_button("Search stock names in Yahoo finance site", "https://finance.yahoo.com")
 
 # set dates
-today = datetime.now()
-#earliest_year = today.year - 5
-
-# Define a timedelta of 10 days
-ten_days = timedelta(days=10)
-
-# Calculate the date 10 days from today
-past_date = today - ten_days
-
-#earliest_date = datetime.date(earliest_year, 1, 1)
+today = datetime.datetime.now()
+earliest_year = today.year - 5
+earliest_date = datetime.date(earliest_year, 1, 1)
 
 dates = st.sidebar.date_input(
     "Select time period of historical data",
-    (past_date, today),
-    past_date,
+    (datetime.date(earliest_year, 1, 1), today),
+    earliest_date,
     today,
     format="YYYY.MM.DD",
 )
@@ -62,9 +55,9 @@ st.write(
 )
 
 #get ticker data by creating a ticker object
-end = datetime.now()
-start = datetime(end.year - 9, end.month, end.day)
-main_df = yf.download(ticker_symbol, start, end)
+main_df = yf.download(ticker_symbol, 
+start=''+str(dates[0].year)+'-'+str(dates[0].month)+'-'+str(dates[0].day), 
+end=''+str(dates[1].year)+'-'+str(dates[1].month)+'-'+str(dates[1].day))
 
 st.dataframe(main_df.sort_index(ascending=False))
 
