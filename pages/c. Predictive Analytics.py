@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 
 from sklearn.ensemble import RandomForestRegressor
 import xgboost as xgb
+from sklearn.svm import SVR
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import StandardScaler
 
@@ -44,13 +45,18 @@ past_date = today - ten_days
 
 #earliest_date = datetime.date(earliest_year, 1, 1)
 
-dates = st.sidebar.date_input(
-    "Select time period of historical data",
-    (past_date, today),
-    past_date,
-    today,
-    format="YYYY.MM.DD",
-)
+# dates = st.sidebar.write(
+#     "Select time period of historical data",
+#     (past_date, today),
+#     past_date,
+#     today,
+#     format="YYYY.MM.DD",
+# )
+
+st.sidebar.write("last 10 days of closing price")
+
+st.sidebar.write(str(past_date.year) +"/"+ str(past_date.month) +"/"+ str(past_date.day), " - " , 
+                 str(today.year) +"/"+ str(today.month) +"/"+ str(today.day))
 
 # days_for_forecasting
 days_for_forecasting = st.sidebar.slider('How many days for forecasting?', 1, 10, 1)
@@ -79,7 +85,7 @@ main_df['Volume_target'] = main_df['Volume'].shift(-1)
 # select model for forecasting
 option = st.selectbox(
     'Which model should make the forecasts?',
-    ('Arima', 'Random Forest', 'XGBoost', 'kNN', 'SVM', 'LSTM'),
+    ('Arima', 'Random Forest', 'XGBoost', 'LSTM'),
     index=None,
     placeholder="Select model to create forecasts",)
 
@@ -100,9 +106,6 @@ def simulate_randon_forest_forecasting(main_df, days_for_forecasting):
         if new_date.weekday() in [5,6]:
             while new_date.weekday() in [5,6]:
                 new_date = new_date + timedelta(days=1)
-        
-        
-        train_features = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
 
         ### Open
         #Predict the latest next day Open price with baseline random forest model
@@ -360,9 +363,6 @@ def simulate_xgboost_forecasting(main_df, days_for_forecasting):
     return main_df
 
 
-
-
-
 forecasted_df = pd.DataFrame()
 if option is None:
     st.markdown("Select a model to produce forecasts")
@@ -439,6 +439,6 @@ elif option == 'XGBoost':
     st.pyplot(fig)
     
 else:
-    st.markdown("#### Arima, XGBoost, kNN, SVM, LSTM, CNN and the rest of the models will be updated soon")
+    st.markdown("#### Arima, kNN, SVM, LSTM, and the rest of the models will be updated soon")
 
 
