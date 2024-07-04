@@ -66,7 +66,6 @@ with st.container():
         
     with tab2:
         st.markdown("## Company's summary: ")
-        st.markdown("### Due to API issues this page is not available at the moment")
         st.markdown("- "+tickers.tickers[ticker_symbol].info['longBusinessSummary'])
     
     with tab3:
