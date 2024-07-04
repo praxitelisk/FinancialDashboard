@@ -44,7 +44,7 @@ dates = st.sidebar.date_input(
 with st.container():
     st.markdown("# Inspecting Stock Data")
     st.write(
-    """This page illustrates pertinent information regarding financial assets and plotting with Streamlit. Enjoy! 🧐"""
+    """This page illustrates pertinent information regarding financial assets and plotting with Streamlit."""
 )
  
 equity_name =  tickers.tickers[ticker_symbol].info['shortName']
