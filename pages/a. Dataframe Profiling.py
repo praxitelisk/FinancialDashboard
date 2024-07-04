@@ -95,13 +95,13 @@ with st.container():
     "Annual evolution", "Histogram", "Violin plot"])
        
     with tab1:
-        # st.write("### Stock Closing Price in " + financialCurrency)
+        st.write("### Stock Closing Price in " + financialCurrency)
         st.write("### Stock Closing Price")
         st.line_chart(tickerDF.Close)
         
     with tab2:
         # candlestick plot
-        # st.write("### Stock Closing Price candlestick plot in "+ financialCurrency)
+        st.write("### Stock Closing Price candlestick plot in "+ financialCurrency)
         st.write("### Stock Closing Price candlestick plot in ")
         import plotly.graph_objects as go
 
