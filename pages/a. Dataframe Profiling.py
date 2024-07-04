@@ -95,13 +95,11 @@ with st.container():
        
     with tab1:
         st.write("### Stock Closing Price in " + financialCurrency)
-        st.write("### Stock Closing Price")
         st.line_chart(tickerDF.Close)
         
     with tab2:
         # candlestick plot
         st.write("### Stock Closing Price candlestick plot in "+ financialCurrency)
-        st.write("### Stock Closing Price candlestick plot in ")
         import plotly.graph_objects as go
 
         fig = go.Figure()
@@ -125,7 +123,6 @@ with st.container():
     with tab4:
         # price histogram
         st.write("### Closing price histogram in "+ financialCurrency)
-        st.write("### Closing price histogram")
         fig = ex.histogram(tickerDF, x="Close", nbins=20)
         st.plotly_chart(fig, use_container_width=True)
         
@@ -148,29 +145,24 @@ with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
            st.write("#### Stock's Open price in "+ financialCurrency)
-           st.write("#### Stock's Open price")
            st.line_chart(tickerDF["Open"])
 
         with col2:
            st.write("#### Stock's High price in "+ financialCurrency)
-           st.write("#### Stock's High price")
            st.line_chart(tickerDF["High"])
 
         with col3:
            st.write("#### Stock's Low price in "+ financialCurrency)
-           st.write("#### Stock's Low price")
            st.line_chart(tickerDF["Low"])
            
 
         col1, col2, col3 = st.columns(3)
         with col1:
            st.write("#### Stock's Close price in "+ financialCurrency)
-           st.write("#### Stock's Close price")
            st.line_chart(tickerDF["Close"])
 
         with col2:
            st.write("#### Stock's Adj Close price in "+ financialCurrency)
-           st.write("#### Stock's Adj Close price")
            st.line_chart(tickerDF["Adj Close"])
 
         with col3:
