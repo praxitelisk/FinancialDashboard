@@ -14,19 +14,23 @@ st.write("# Welcome to FinanceVue! 🗠")
 
 st.markdown("FinanceVue is a financial stock dashboard that provides a comprehensive overview of key financial and market data related to stocks and securities. It is designed to help investors, traders, and financial professionals monitor and analyze stock market performance, make informed decisions, and track their investments. A stock dashboard typically includes various financial and market indicators, charts, and data presented in a user-friendly format.")
 
-st.markdown("### Created and designed by [Praxitelis-Nikolaos Kouroupetroglou](https://praxitelisk.github.io/) 👋")
-#st.markdown("#### Supervised by: Prof. [Alkiviadis Tsimpiris](http://teachers.cm.ihu.gr/tsimpiris/index.php/en/) 👀")
+st.markdown("### Created and designed by [Praxitelis-Nikolaos Kouroupetroglou](https://praxitelisk.github.io/)")
+st.markdown("#### Supervised by: Prof. [Alkiviadis Tsimpiris](http://teachers.cm.ihu.gr/tsimpiris/index.php/en/)")
 
-#image = Image.open('images/IHU_logo.png')
-#st.image(image, caption='International Hellenic Univesity')
+image = Image.open('images/IHU_logo.png')
+st.image(image)
+st.markdown("[International Helenic University](https://www.ihu.gr/ucips/)")
 
 
+image = Image.open('images/dark-blue.jpg')
+st.image(image)
+st.markdown("[Master In Applied Informatics](https://ict.ihu.gr/en/home)")
+
+st.write("## What is streamLit?")
 st.markdown(
     """
     Streamlit is an open-source app framework built specifically for
     Machine Learning and Data Science projects.
-    **👈 Select a demo from the sidebar** to see some examples
-    of what Streamlit can do!
     ### Want to learn more?
     - Check out [streamlit.io](https://streamlit.io)
     - Jump into [documentation](https://docs.streamlit.io)
