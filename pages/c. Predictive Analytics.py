@@ -4,6 +4,7 @@ import numpy as np
 import yfinance as yf
 from datetime import datetime
 from datetime import timedelta
+from PIL import Image
 
 import matplotlib.pyplot as plt
 
@@ -62,7 +63,11 @@ st.sidebar.write(str(past_date.year) +"/"+ str(past_date.month) +"/"+ str(past_d
 days_for_forecasting = st.sidebar.slider('Select the days for forecasting', 1, 10, 1)
 
 ### main window
-st.markdown("# Stock Data Forecasting")
+
+st.markdown("# Stock Closing Price Forecasting")
+image = Image.open('images/disclaimer.png')
+st.image(image)
+
 st.write(
     """Stock Forecasting is a tool to predict future stock price based on past historical data"""
 )
