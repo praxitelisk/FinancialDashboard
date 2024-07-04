@@ -85,7 +85,7 @@ main_df['Volume_target'] = main_df['Volume'].shift(-1)
 # select model for forecasting
 option = st.selectbox(
     'Which model should make the forecasts?',
-    ('Arima', 'Random Forest', 'XGBoost', 'LSTM'),
+    ('Random Forest', 'XGBoost'),
     index=None,
     placeholder="Select model to create forecasts",)
 
@@ -439,6 +439,6 @@ elif option == 'XGBoost':
     st.pyplot(fig)
     
 else:
-    st.markdown("#### Arima, kNN, SVM, LSTM, and the rest of the models will be updated soon")
+    st.markdown("#### more models will be updated soon")
 
 
