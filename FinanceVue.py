@@ -17,14 +17,18 @@ st.markdown("FinanceVue is a financial stock dashboard that provides a comprehen
 st.markdown("### Created and designed by [Praxitelis-Nikolaos Kouroupetroglou](https://praxitelisk.github.io/)")
 st.markdown("#### Supervised by: Prof. [Alkiviadis Tsimpiris](http://teachers.cm.ihu.gr/tsimpiris/index.php/en/)")
 
+st.markdown("## [International Helenic University](https://www.ihu.gr/ucips/)")
 image = Image.open('images/IHU_logo.png')
 st.image(image)
-st.markdown("[International Helenic University](https://www.ihu.gr/ucips/)")
 
+st.markdown("## [Department of Computer, Informatics and Telecommunications Engineering](https://ict.ihu.gr/en/home)")
+image = Image.open('images/dept.jpg')
+st.image(image)
 
+st.markdown("## [Master In Applied Informatics](https://ict.ihu.gr/en/home)")
 image = Image.open('images/dark-blue.jpg')
 st.image(image)
-st.markdown("[Master In Applied Informatics](https://ict.ihu.gr/en/home)")
+
 
 st.write("## What is streamLit?")
 st.markdown(
