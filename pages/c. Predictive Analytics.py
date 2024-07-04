@@ -54,7 +54,7 @@ past_date = today - ten_days
 #     format="YYYY.MM.DD",
 # )
 
-st.sidebar.write("last 10 days of closing price")
+st.sidebar.write("viewing the last 10 days of closing price")
 
 st.sidebar.write(str(past_date.year) +"/"+ str(past_date.month) +"/"+ str(past_date.day), " - " , 
                  str(today.year) +"/"+ str(today.month) +"/"+ str(today.day))
