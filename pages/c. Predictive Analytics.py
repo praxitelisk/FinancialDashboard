@@ -59,7 +59,7 @@ st.sidebar.write(str(past_date.year) +"/"+ str(past_date.month) +"/"+ str(past_d
                  str(today.year) +"/"+ str(today.month) +"/"+ str(today.day))
 
 # days_for_forecasting
-days_for_forecasting = st.sidebar.slider('How many days for forecasting?', 1, 10, 1)
+days_for_forecasting = st.sidebar.slider('Select the days for forecasting', 1, 10, 1)
 
 ### main window
 st.markdown("# Stock Data Forecasting")
