@@ -117,7 +117,6 @@ with st.container():
 
         # Plot the result
         st.write("### Mean closing price over the years in "+ financialCurrency)
-        st.write("### Mean closing price over the years")
         st.bar_chart(mean_closing_price_per_year)
         
     with tab4:
