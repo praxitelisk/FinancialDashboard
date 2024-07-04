@@ -1,6 +1,8 @@
 import streamlit as st
 import requests
 
+st.set_page_config(page_title="Dataframe Profiling", page_icon="📰")
+
 # Function to fetch news articles
 def fetch_news(api_key, query):
     url = 'https://newsapi.org/v2/everything'
