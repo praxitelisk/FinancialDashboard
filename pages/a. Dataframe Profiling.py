@@ -56,7 +56,6 @@ with st.container():
     
     with tab1:
         st.markdown("## Stock info: ")
-        st.markdown("### Due to API issues this page is not available at the moment")
         st.markdown("- Full stock name: " + equity_name)
         st.markdown("- Address: "+tickers.tickers[ticker_symbol].info['address1'])
         st.markdown("- City: "+tickers.tickers[ticker_symbol].info['city'])
