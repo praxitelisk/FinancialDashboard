@@ -10,6 +10,9 @@ if "ticker_symbol" not in st.session_state:
 ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', st.session_state.ticker_symbol)
 st.session_state.ticker_symbol = ticker_symbol
 
+st.sidebar.write("In case you need to search for stocks' names")
+st.sidebar.link_button("Search stock names in Yahoo finance site", "https://finance.yahoo.com")
+
 # Fetch stock data
 def get_stock_data(ticker):
     stock_data = yf.download(ticker, start="2020-01-01")
