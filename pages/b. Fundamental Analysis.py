@@ -41,19 +41,19 @@ try:
     ## Profitability Ratios: ##
     # Earnings Per Share (EPS)
     earnings_per_share = ticker.tickers[ticker_symbol].info['trailingEps']
-    st.markdown("## Earnings Per Share (EPS)")
+    st.markdown("### Earnings Per Share (EPS)")
     st.write("Measures the portion of a company's profit allocated to each outstanding share of common stock.", earnings_per_share) 
 
     # Price-to-Earnings (P/E) Ratio
     pe_ratio = ticker.tickers[ticker_symbol].info['trailingPE']
-    st.markdown("## Price-to-Earnings (P/E) Ratio")
+    st.markdown("### Price-to-Earnings (P/E) Ratio")
     st.write("Measures a company's current share price relative to its per-share earnings.", pe_ratio) 
     
     # Return on Equity (ROE)
     net_income = ticker.tickers[ticker_symbol].financials.loc['Net Income'][0]
     total_equity = ticker.tickers[ticker_symbol].balance_sheet.loc['Stockholders Equity'][0]
     roe = net_income / total_equity
-    st.markdown("## Return on Equity (ROE)")
+    st.markdown("### Return on Equity (ROE)")
     st.write("Measures the profitability of a company in generating profit from its shareholders' equity.", roe) 
 
 
@@ -61,7 +61,7 @@ try:
     net_income = ticker.tickers[ticker_symbol].financials.loc['Net Income'][0]
     total_assets = ticker.tickers[ticker_symbol].balance_sheet.loc['Total Assets'][0]
     roa = net_income / total_assets
-    st.markdown("## Return on Assets (ROA)")
+    st.markdown("### Return on Assets (ROA)")
     st.write("Indicates how profitable a company is relative to its total assets.", roa) 
 
     # Gross Profit Margin
@@ -70,7 +70,7 @@ try:
     gross_profit = revenue - cogs
     gross_profit_margin = (gross_profit / revenue) * 100
 
-    st.markdown("## Gross Profit Margin")
+    st.markdown("### Gross Profit Margin")
     st.write("Shows the percentage of revenue that exceeds the cost of goods sold (COGS)", gross_profit_margin) 
 
 
@@ -79,7 +79,7 @@ try:
     operating_income = ticker.tickers[ticker_symbol].financials.loc['Operating Income'][0]
     operating_margin = (operating_income / revenue) * 100
 
-    st.markdown("## Operating Margin")
+    st.markdown("### Operating Margin")
     st.write("Measures the percentage of revenue left after paying for variable costs of production.", operating_margin) 
 
 
@@ -88,7 +88,7 @@ try:
     total_liabilities = ticker.tickers[ticker_symbol].balance_sheet.loc['Total Liabilities Net Minority Interest'][0]
     debt_to_equity_ratio = total_liabilities / total_equity
 
-    st.markdown("## Liquidity Ratios")
+    st.markdown("### Liquidity Ratios")
     st.write("Measures a company's financial leverage by comparing its total liabilities to shareholders' equity.", debt_to_equity_ratio) 
 
 
@@ -97,7 +97,7 @@ try:
     interest_expense = ticker.tickers[ticker_symbol].financials.loc['Interest Expense'][0]
     interest_coverage_ratio = ebit / interest_expense
     
-    st.markdown("## Quick Ratio (Acid-Test Ratio)")
+    st.markdown("### Quick Ratio (Acid-Test Ratio)")
     st.write("Indicates how easily a company can pay interest on its outstanding debt.", interest_coverage_ratio) 
 
     ## Leverage Ratios: ##
@@ -105,14 +105,14 @@ try:
     total_liabilities = ticker.tickers[ticker_symbol].balance_sheet.loc['Total Liabilities Net Minority Interest'][0]
     debt_to_equity_ratio = total_liabilities / total_equity
 
-    st.markdown("## Leverage Ratios")
+    st.markdown("### Leverage Ratios")
     st.write("Debt-to-Equity Ratio for.", debt_to_equity_ratio) 
 
     # Interest Coverage Ratio
     interest_expense = ticker.tickers[ticker_symbol].financials.loc['Interest Expense'].iloc[0]
     interest_coverage_ratio = ebit / interest_expense
 
-    st.markdown("## Interest Coverage Ratio")
+    st.markdown("### Interest Coverage Ratio")
     st.write("Indicates how easily a company can pay interest on its outstanding debt.", interest_coverage_ratio) 
 
     ### Efficiency Ratios:
@@ -125,7 +125,7 @@ try:
         
     asset_turnover_ratio = total_revenue / average_total_assets
 
-    st.markdown("## Asset Turnover Ratio")
+    st.markdown("### Asset Turnover Ratio")
     st.write("Measures the efficiency of a company's use of its assets in generating sales revenue.", asset_turnover_ratio) 
 
 
@@ -137,7 +137,7 @@ try:
     average_inventory = (inventory_current + inventory_previous) / 2
 
     inventory_turnover_ratio = cogs / average_inventory
-    st.markdown("## Inventory Turnover Ratio")
+    st.markdown("### Inventory Turnover Ratio")
     st.write("Shows how many times a company's inventory is sold and replaced over a period.", inventory_turnover_ratio) 
 
 
@@ -155,7 +155,7 @@ try:
     # Calculate P/B Ratio
     pb_ratio = stock_price / book_value_per_share
 
-    st.markdown("## Price-to-Book (P/B) Ratio")
+    st.markdown("### Price-to-Book (P/B) Ratio")
     st.write("Compares a company's market value to its book value.", pb_ratio) 
 
     # Dividend Yield
@@ -168,7 +168,7 @@ try:
     # Calculate Dividend Yield
     dividend_yield_percentage = (annual_dividend_per_share / stock_price) * 100
 
-    st.markdown("## Dividend")
+    st.markdown("### Dividend")
     st.write("Shows % how much a company pays out in dividends each year relative to its share price.", dividend_yield_percentage) 
 
     ## Growth Ratios
@@ -179,7 +179,7 @@ try:
     # Calculate Revenue Growth Rate
     revenue_growth_rate = ((revenue_current - revenue_previous) / revenue_previous) * 100
 
-    st.markdown("## Revenue Growth Rate")
+    st.markdown("### Revenue Growth Rate")
     st.write("Measures the annual growth rate of revenue from the prior year.", revenue_growth_rate) 
 
 
@@ -191,7 +191,7 @@ try:
     # Calculate Earnings Growth Rate
     earnings_growth_rate = ((earnings_current - earnings_previous) / earnings_previous) * 100
 
-    st.markdown("## Earnings Growth Rate")
+    st.markdown("### Earnings Growth Rate")
     st.write("Measures the annual growth rate of revenue from the prior year.", revenue_growth_rate) 
 
 
@@ -203,13 +203,13 @@ try:
     # Calculate Free Cash Flow
     free_cash_flow = cash_flow_from_operations - capital_expenditures
 
-    st.markdown("## Free Cash Flow (FCF)")
+    st.markdown("### Free Cash Flow (FCF)")
     st.write("Indicates the cash a company generates after accounting for cash outflows to support operations and maintain capital assets.", free_cash_flow) 
 
     # Operating Cash Flow Ratio
     operating_cash_flow_ratio = cash_flow_from_operations / total_liabilities
 
-    st.markdown("## Operating Cash Flow Ratio")
+    st.markdown("### Operating Cash Flow Ratio")
     st.write("Measures how well current liabilities are covered by the cash flow generated from a company's operations.", operating_cash_flow_ratio) 
 
 
