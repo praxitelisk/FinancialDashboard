@@ -18,7 +18,6 @@ def get_stock_data(ticker):
     return stock_data
 
 st.markdown("# Fundamental Analysis of Stock")
-st.sidebar.header("Fundamental Metrics")
 
 # Display the stock data
 st.write(f"Displaying fundamental analysis for {ticker_symbol}")
