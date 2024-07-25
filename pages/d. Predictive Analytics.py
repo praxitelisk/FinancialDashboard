@@ -22,7 +22,7 @@ if "ticker_symbol" not in st.session_state:
     st.session_state.ticker_symbol = 'AAPL'
 
 ### sidebar
-st.sidebar.header("Stock Data Forecasting")
+st.sidebar.header("Stock Price Forecasting")
 
 st.sidebar.write("Type the stock name:")
 ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', st.session_state.ticker_symbol)
@@ -64,7 +64,7 @@ days_for_forecasting = st.sidebar.slider('Select the days for forecasting', 1, 1
 
 ### main window
 
-st.markdown("# Stock Closing Price Forecasting")
+st.markdown("# Stock Closing Price Forecasting 🔮")
 
 
 # Create colored text labels using Markdown
