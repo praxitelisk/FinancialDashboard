@@ -1,7 +1,7 @@
 import streamlit as st
 import yfinance as yf
 
-st.set_page_config(page_title="Financial Indicators", page_icon="🧮")
+st.set_page_config(page_title="Fundamental Analysis", page_icon="🧮")
 
 if "ticker_symbol" not in st.session_state:
     st.session_state.ticker_symbol = 'AAPL'
@@ -17,7 +17,7 @@ def get_stock_data(ticker):
     stock_data = yf.Tickers(ticker)
     return stock_data
 
-st.markdown("# Fundamental Analysis of Stock")
+st.markdown("# Fundamental Analysis of Stock 🗂️")
 
 # Display the stock data
 st.write(f"Displaying fundamental analysis for {ticker_symbol}")
