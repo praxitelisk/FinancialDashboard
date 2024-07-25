@@ -20,7 +20,7 @@ if "ticker_symbol" not in st.session_state:
     st.session_state.ticker_symbol = 'AAPL'
 
 
-ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis. E.g. AAPL, MSFT, TSLA, AMZN', st.session_state.ticker_symbol)
+ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis. E.g. AAPL, MSFT, TSLA, AMZN, NVDA', st.session_state.ticker_symbol)
 st.session_state.ticker_symbol = ticker_symbol
 
 tickers = yf.Tickers(ticker_symbol)
