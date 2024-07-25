@@ -27,15 +27,18 @@ try:
     #financial_metrics = calculate_fundamental_indicators(stock_data)
     
     # print balance sheet
-    st.write("Balance Sheet")
+    st.markdown("### Balance Sheet")
+    st.write("The balance sheet displays the company's total assets and how the assets are financed, either through either debt or equity.")
     st.write(ticker.tickers[ticker_symbol].balance_sheet)
 
     # print financials
-    st.write("Financials")
+    st.markdown("### Financials")
+    st.write("The balance sheet provides an overview of assets, liabilities, and shareholders' equity as a snapshot in time.")
     st.write(ticker.tickers[ticker_symbol].financials)
 
     # print cashflow
-    st.write("Cashflow")
+    st.markdown("### Cashflow")
+    st.write("The cash flow statement (CFS) shows how cash flows throughout a company.")
     st.write(ticker.tickers[ticker_symbol].cashflow)
 
     ## Profitability Ratios: ##
