@@ -8,7 +8,7 @@ def fetch_news(api_key, query):
     url = 'https://newsapi.org/v2/everything'
     params = {
         'q': query,
-        'pageSize': 10,
+        'pageSize': 100,
         'apiKey': api_key,
     }
     response = requests.get(url, params=params)
@@ -36,11 +36,12 @@ def main():
             articles = fetch_news(api_key, keyword)
             if articles:
                 for article in articles:
-                    st.subheader(article['title'])
-                    if article.get('urlToImage'):
-                        st.image(article['urlToImage'], width=600)
-                    st.write(article['description'])
-                    st.write(f"[Read more]({article['url']})")
+                    if article['title'] != '[Removed]' and article.get('urlToImage'):
+                        st.subheader(article['title'])
+                        if article.get('urlToImage'):
+                            st.image(article['urlToImage'], width=600)
+                        st.write(article['description'])
+                        st.write(f"[Read more]({article['url']})")
             else:
                 st.info('No articles found')
 
