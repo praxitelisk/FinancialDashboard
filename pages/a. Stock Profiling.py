@@ -11,7 +11,7 @@ import plotly.express  as ex
 st.set_page_config(page_title="Dataframe Profiling", page_icon="📈")
 
 # sidebar
-st.sidebar.header("Financial Stock Data Profiling")
+st.sidebar.header("Financial Stocks Data Profiling")
 
 st.sidebar.write("Stock name:")
 

@@ -10,6 +10,9 @@ if "ticker_symbol" not in st.session_state:
 ticker_symbol = st.sidebar.text_input('Type here the stock name IN CAPITAL LETTERS you need for analysis', st.session_state.ticker_symbol)
 st.session_state.ticker_symbol = ticker_symbol
 
+st.sidebar.write("In case you need to search for stocks' names")
+st.sidebar.link_button("Search stock names in Yahoo finance site", "https://finance.yahoo.com")
+
 # Fetch stock data
 def get_stock_data(ticker):
     stock_data = yf.download(ticker, start="2020-01-01")
@@ -41,7 +44,7 @@ def calculate_indicators(data, indicators):
         results['ATR'] = tr.rolling(window=14).mean()
     return results
 
-st.markdown("# Stock Closing Price and Financial Indicators")
+st.markdown("# Stock Closing Price and Financial Indicators 💹")
 st.sidebar.header("Financial Indicators")
 
 # Define list of available indicators
@@ -49,7 +52,7 @@ available_indicators = ['Moving Average', 'Exponential Moving Average', 'RSI', '
 selected_indicators = st.sidebar.multiselect('Select Indicators', available_indicators)
 
 # Display the stock data
-st.write(f"Displaying data for {ticker_symbol}")
+st.write(f"Displaying the flactuations of closing price for {ticker_symbol} stock")
 
 try:
     stock_data = get_stock_data(ticker_symbol)
