@@ -68,25 +68,30 @@ try:
     st.line_chart(chart_data)
 
     if 'Moving Average' in selected_indicators:
-        st.markdown("## Moving Average)")
+        st.markdown("## Moving Average")
+        st.write("The Moving Average is a statistical calculation used to analyze data points by creating a series of averages of different subsets of the full data set. It helps smooth out price data to identify trends and patterns by filtering out the \"noise\" from random price fluctuations. Traders use MAs to identify the direction of the trend and determine support and resistance levels. It's a lagging indicator that helps to confirm trends rather than predict them.")
         st.line_chart(indicators['Moving Average'])
 
 
     if 'Exponential Moving Average' in selected_indicators:
-        st.markdown("## Exponential Moving Average)")
+        st.markdown("## Exponential Moving Average")
+        st.write("The Exponential Moving Average is a type of moving average that gives more weight to the most recent data points, making it more responsive to new information than the simple moving average. Like the MA, the EMA is used to identify trends and potential buy or sell signals. Due to its sensitivity to recent price movements, it's particularly useful in fast-moving markets.")
         st.line_chart(indicators['Exponential Moving Average'])
 
 
     if 'MACD' in selected_indicators:
-        st.markdown("## Moving Average Convergence Divergence)")
+        st.markdown("## Moving Average Convergence Divergence")
+        st.write(" The MACD is a trend-following momentum indicator that shows the relationship between two moving averages of an asset’s price. Traders use the MACD to identify changes in the strength, direction, momentum, and duration of a trend. A common signal is when the MACD line crosses above the signal line (bullish signal) or below it (bearish signal).")
         st.line_chart(indicators['MACD'])
     
     if 'RSI' in selected_indicators:
         st.markdown("## RSI (Relative Strength Index)")
+        st.write("The Relative Strength Index is a momentum oscillator that measures the speed and change of price movements. It ranges from 0 to 100. RSI values above 70 generally indicate that an asset is overbought, while values below 30 suggest it is oversold. Traders use these signals to identify potential reversal points.")
         st.line_chart(indicators['RSI'])
     
     if 'ATR' in selected_indicators:
         st.markdown("## ATR (Average True Range)")
+        st.write("The Average True Range is a volatility indicator that measures the degree of price movement for an asset. ATR provides insight into how much an asset typically moves over a given period, helping traders set stop-loss orders and determine the volatility of the market. Higher ATR values indicate more significant volatility, while lower values suggest lower volatility.")
         st.line_chart(indicators['ATR'])
         
 except Exception as e:
