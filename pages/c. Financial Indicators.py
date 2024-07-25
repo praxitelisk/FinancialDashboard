@@ -44,7 +44,7 @@ def calculate_indicators(data, indicators):
         results['ATR'] = tr.rolling(window=14).mean()
     return results
 
-st.markdown("# Stock Closing Price and Financial Indicators")
+st.markdown("# Stock Closing Price and Financial Indicators 💹")
 st.sidebar.header("Financial Indicators")
 
 # Define list of available indicators
@@ -52,7 +52,7 @@ available_indicators = ['Moving Average', 'Exponential Moving Average', 'RSI', '
 selected_indicators = st.sidebar.multiselect('Select Indicators', available_indicators)
 
 # Display the stock data
-st.write(f"Displaying data for {ticker_symbol}")
+st.write(f"Displaying the flactuations of closing price for {ticker_symbol} stock")
 
 try:
     stock_data = get_stock_data(ticker_symbol)
