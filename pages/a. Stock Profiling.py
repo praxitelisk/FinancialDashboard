@@ -70,7 +70,6 @@ with st.container():
     
     with tab3:
         st.markdown("## Historical Data timeline: ")
-        st.markdown(str(dates))
         earliest_date = dates[0]
         latest_date = dates[1]
 
