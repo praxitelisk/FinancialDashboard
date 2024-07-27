@@ -1,3 +1,4 @@
+import datetime
 import streamlit as st
 import pandas as pd
 import yfinance as yf
@@ -13,9 +14,27 @@ st.session_state.ticker_symbol = ticker_symbol
 st.sidebar.write("In case you need to search for stocks' names")
 st.sidebar.link_button("Search stock names in Yahoo finance site", "https://finance.yahoo.com")
 
+
+today = datetime.datetime.now()
+earliest_year = today.year - 16
+earliest_date = datetime.date(earliest_year, 1, 1)
+
+dates = st.sidebar.date_input(
+    "Select time period of historical data",
+    (datetime.date(earliest_year, 1, 1), today),
+    earliest_date,
+    today,
+    format="YYYY.MM.DD",
+)
+
 # Fetch stock data
 def get_stock_data(ticker):
-    stock_data = yf.download(ticker, start="2020-01-01")
+
+    earliest_date = dates[0]
+    latest_date = dates[1]
+
+    stock_data = yf.download(ticker, start=''+str(earliest_date.year)+'-'+str(earliest_date.month)+'-'+str(earliest_date.day), 
+        end=''+str(latest_date.year)+'-'+str(latest_date.month)+'-'+str(latest_date.day))
     return stock_data
 
 # Calculate financial indicators
