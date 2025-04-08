@@ -35,6 +35,8 @@ def get_stock_data(ticker):
 
     stock_data = yf.download(ticker, start=''+str(earliest_date.year)+'-'+str(earliest_date.month)+'-'+str(earliest_date.day), 
         end=''+str(latest_date.year)+'-'+str(latest_date.month)+'-'+str(latest_date.day))
+    
+    stock_data.columns = stock_data.columns.droplevel('Ticker')
     return stock_data
 
 # Calculate financial indicators

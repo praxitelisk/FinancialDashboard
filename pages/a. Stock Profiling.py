@@ -78,6 +78,8 @@ with st.container():
         start=''+str(earliest_date.year)+'-'+str(earliest_date.month)+'-'+str(earliest_date.day), 
         end=''+str(latest_date.year)+'-'+str(latest_date.month)+'-'+str(latest_date.day))
 
+        tickerDF.columns = tickerDF.columns.droplevel('Ticker')
+
         #columns: Open, High, Low, Close, Adj Close and Volume
         st.dataframe(tickerDF)
 
@@ -154,16 +156,16 @@ with st.container():
            st.line_chart(tickerDF["Low"])
            
 
-        col1, col2, col3 = st.columns(3)
+        col1, col2 = st.columns(2)
         with col1:
            st.write("#### Stock's Close price in "+ financialCurrency)
            st.line_chart(tickerDF["Close"])
 
-        with col2:
+        """ with col2:
            st.write("#### Stock's Adj Close price in "+ financialCurrency)
-           st.line_chart(tickerDF["Adj Close"])
+           st.line_chart(tickerDF["Adj Close"]) """
 
-        with col3:
+        with col2:
            st.write("#### Stock's Volume over time")
            st.line_chart(tickerDF["Volume"])
     
@@ -188,20 +190,20 @@ with st.container():
             st.plotly_chart(fig, use_container_width=True)
            
 
-        col1, col2, col3 = st.columns(3)
+        col1, col2 = st.columns(2)
         with col1:
             fig = ex.violin(tickerDF, y="Close", box=True, # draw box plot inside the violin
                     points='all', # can be 'outliers', or False
                    )
             st.plotly_chart(fig, use_container_width=True)
 
-        with col2:
+        """ with col2:
             fig = ex.violin(tickerDF, y="Adj Close", box=True, # draw box plot inside the violin
                     points='all', # can be 'outliers', or False
                    )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True) """
 
-        with col3:
+        with col2:
             fig = ex.violin(tickerDF, y="Volume", box=True, # draw box plot inside the violin
                     points='all', # can be 'outliers', or False
                    )
@@ -225,7 +227,7 @@ with st.container():
     with tab2:
         st.markdown("#### Stock price movements Kdeplots")
         
-        options = st.multiselect('Choose 2 features', ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'],
+        options = st.multiselect('Choose 2 features', ['Open', 'High', 'Low', 'Close', 'Volume'],
         default=["Open", "Close"], max_selections=2)
         
         fig = ex.density_contour(tickerDF, x=options[0], y=options[1], marginal_x="histogram", marginal_y="histogram")
