@@ -97,6 +97,7 @@ st.write(
 end = datetime.now()
 start = datetime(end.year - 9, end.month, end.day)
 main_df = yf.download(ticker_symbol, start, end)
+main_df.columns = main_df.columns.droplevel('Ticker')
 
 st.dataframe(main_df.sort_index(ascending=False))
 
