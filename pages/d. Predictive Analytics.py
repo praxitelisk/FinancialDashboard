@@ -106,7 +106,7 @@ main_df['Open_target'] = main_df['Open'].shift(-1)
 main_df['High_target'] = main_df['High'].shift(-1)
 main_df['Low_target'] = main_df['Low'].shift(-1)
 main_df['Close_target'] = main_df['Close'].shift(-1)
-main_df['Adj Close_target'] = main_df['Adj Close'].shift(-1)
+# main_df['Adj Close_target'] = main_df['Adj Close'].shift(-1)
 main_df['Volume_target'] = main_df['Volume'].shift(-1)
 
 # select model for forecasting
@@ -136,7 +136,11 @@ def simulate_randon_forest_forecasting(main_df, days_for_forecasting):
 
         ### Open
         #Predict the latest next day Open price with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+
+        # X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False)[:-1]
+        
+        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target','Volume_target'], 
                                axis=1, inplace=False)[:-1]
         
         y_train = main_df['Open_target'][:-1]
@@ -144,15 +148,24 @@ def simulate_randon_forest_forecasting(main_df, days_for_forecasting):
         # build random forest model to predict the next open value
         model = RandomForestRegressor(n_estimators=100, random_state=42)
         model.fit(X_train, y_train)
+        
+        # open_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
+
         open_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
-                               axis=1, inplace=False).tail(1))
+            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
+                              axis=1, inplace=False).tail(1))
 
         
 
         ### High
         #Predict the latest next day High price with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+
+        #X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False)[:-1]
+
+        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False)[:-1]
         
         y_train = main_df['High_target'][:-1]
@@ -160,44 +173,70 @@ def simulate_randon_forest_forecasting(main_df, days_for_forecasting):
         # build random forest model to predict the next high value
         model = RandomForestRegressor(n_estimators=100, random_state=42)
         model.fit(X_train, y_train)
+
+        # high_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
+        
         high_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False).tail(1))
         
         
         ### Low
         #Predict the latest next day Open price with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
-                               axis=1, inplace=False)[:-1]
+
+        #X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                        axis=1, inplace=False)[:-1]
+
+        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
+                                axis=1, inplace=False)[:-1]
         
         y_train = main_df['Low_target'][:-1]
         
         # build random forest model to predict the next Low price
         model = RandomForestRegressor(n_estimators=100, random_state=42)
         model.fit(X_train, y_train)
+
+        # low_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
+        
         low_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False).tail(1))
         
         
         ### Volume
         #Predict the latest next day Volume with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
-                               axis=1, inplace=False)[:-1]
+        # X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                        axis=1, inplace=False)[:-1]
+
+        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
+                                axis=1, inplace=False)[:-1]
         
         y_train = main_df['Volume_target'][:-1]
         
         # build random forest model to predict the next 
         model = RandomForestRegressor(n_estimators=100, random_state=42)
         model.fit(X_train, y_train)
+        
+        # volume_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
+        
         volume_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False).tail(1))
 
         
         ### Close
         #Predict the latest next day Close price with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        
+        #X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False)[:-1]
+
+        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False)[:-1]
         
         y_train = main_df['Close_target'][:-1]
@@ -205,24 +244,29 @@ def simulate_randon_forest_forecasting(main_df, days_for_forecasting):
         # build random forest model to predict the next 
         model = RandomForestRegressor(n_estimators=100, random_state=42)
         model.fit(X_train, y_train)
+        
+        #close_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
+
         close_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False).tail(1))
         
         
         ### Adj Close
         #Predict the next day Adj Close price with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
-                               axis=1, inplace=False)[:-1]
+        # X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False)[:-1]
         
-        y_train = main_df['Adj Close_target'][:-1]
+        # y_train = main_df['Adj Close_target'][:-1]
         
         # build random forest model to predict the next 
-        model = RandomForestRegressor(n_estimators=100, random_state=42)
-        model.fit(X_train, y_train)
-        adj_close_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
-                               axis=1, inplace=False).tail(1))
+        # model = RandomForestRegressor(n_estimators=100, random_state=42)
+        # model.fit(X_train, y_train)
+        # adj_close_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
         
         
         # save the new predictions to targets
@@ -230,7 +274,7 @@ def simulate_randon_forest_forecasting(main_df, days_for_forecasting):
         main_df['High_target'].iloc[-1] = high_pred[0]
         main_df['Low_target'].iloc[-1] = low_pred[0]
         main_df['Close_target'].iloc[-1] = close_pred[0]
-        main_df['Adj Close_target'].iloc[-1] = adj_close_pred[0]
+        # main_df['Adj Close_target'].iloc[-1] = adj_close_pred[0]
         main_df['Volume_target'].iloc[-1] = np.round(volume_pred[0])
         
         
@@ -239,11 +283,11 @@ def simulate_randon_forest_forecasting(main_df, days_for_forecasting):
                 main_df['High_target'][-1], 
                 main_df['Low_target'][-1], 
                 main_df['Close_target'][-1], 
-                main_df['Adj Close_target'][-1], 
+        #        main_df['Adj Close_target'][-1], 
                 main_df['Volume_target'][-1],
                np.NaN,
                np.NaN,
-               np.NaN,
+        #       np.NaN,
                np.NaN,
                np.NaN,
                np.NaN]
@@ -273,93 +317,139 @@ def simulate_xgboost_forecasting(main_df, days_for_forecasting):
 
         ### Open
         #Predict the latest next day Open price with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        
+        #X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False)[:-1]
+        
+        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False)[:-1]
         
+
         y_train = main_df['Open_target'][:-1]
         
         # build random forest model to predict the next open value
         model = xgb.XGBRegressor(n_estimators=100, seed=42)
         model.fit(X_train, y_train)
+        
+        #open_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
+
         open_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False).tail(1))
 
-        
 
         ### High
         #Predict the latest next day High price with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
-                               axis=1, inplace=False)[:-1]
         
+        #X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False)[:-1]
+        
+        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
+                               axis=1, inplace=False)[:-1]
+
         y_train = main_df['High_target'][:-1]
         
         # build random forest model to predict the next high value
         model = xgb.XGBRegressor(n_estimators=100, seed=42)
         model.fit(X_train, y_train)
-        high_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
-                               axis=1, inplace=False).tail(1))
         
+        #high_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
+        
+        high_pred = model.predict(main_df.drop(
+            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
+                               axis=1, inplace=False).tail(1))
         
         ### Low
         #Predict the latest next day Open price with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
-                               axis=1, inplace=False)[:-1]
         
+        #X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False)[:-1]
+        
+        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
+                               axis=1, inplace=False)[:-1]
+
         y_train = main_df['Low_target'][:-1]
         
         # build random forest model to predict the next Low price
         model = xgb.XGBRegressor(n_estimators=100, seed=42)
         model.fit(X_train, y_train)
+        
+        #low_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
+        
         low_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False).tail(1))
         
         
         ### Volume
         #Predict the latest next day Volume with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        
+        #X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False)[:-1]
+        
+        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False)[:-1]
         
+
         y_train = main_df['Volume_target'][:-1]
         
         # build random forest model to predict the next 
         model = xgb.XGBRegressor(n_estimators=100, seed=42)
         model.fit(X_train, y_train)
+        
+        #volume_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
+
         volume_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False).tail(1))
 
-        
+
         ### Close
         #Predict the latest next day Close price with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        
+        #X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False)[:-1]
+        
+        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False)[:-1]
+        
         
         y_train = main_df['Close_target'][:-1]
         
         # build random forest model to predict the next 
         model = xgb.XGBRegressor(n_estimators=100, seed=42)
         model.fit(X_train, y_train)
+        
+        #close_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
+        
         close_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Volume_target'], 
                                axis=1, inplace=False).tail(1))
         
         
         ### Adj Close
         #Predict the next day Adj Close price with baseline random forest model
-        X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
-                               axis=1, inplace=False)[:-1]
+        #X_train = main_df.drop(['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False)[:-1]
         
-        y_train = main_df['Adj Close_target'][:-1]
+        #y_train = main_df['Adj Close_target'][:-1]
         
         # build random forest model to predict the next 
-        model = xgb.XGBRegressor(n_estimators=100, seed=42)
-        model.fit(X_train, y_train)
-        adj_close_pred = model.predict(main_df.drop(
-            ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
-                               axis=1, inplace=False).tail(1))
+        #model = xgb.XGBRegressor(n_estimators=100, seed=42)
+        #model.fit(X_train, y_train)
+        #adj_close_pred = model.predict(main_df.drop(
+        #    ['Open_target', 'High_target', 'Low_target', 'Close_target', 'Adj Close_target', 'Volume_target'], 
+        #                       axis=1, inplace=False).tail(1))
         
         
         # save the new predictions to targets
@@ -367,7 +457,7 @@ def simulate_xgboost_forecasting(main_df, days_for_forecasting):
         main_df['High_target'].iloc[-1] = high_pred[0]
         main_df['Low_target'].iloc[-1] = low_pred[0]
         main_df['Close_target'].iloc[-1] = close_pred[0]
-        main_df['Adj Close_target'].iloc[-1] = adj_close_pred[0]
+        #main_df['Adj Close_target'].iloc[-1] = adj_close_pred[0]
         main_df['Volume_target'].iloc[-1] = np.round(volume_pred[0])
         
         
@@ -376,13 +466,13 @@ def simulate_xgboost_forecasting(main_df, days_for_forecasting):
                 main_df['High_target'][-1], 
                 main_df['Low_target'][-1], 
                 main_df['Close_target'][-1], 
-                main_df['Adj Close_target'][-1], 
+            #    main_df['Adj Close_target'][-1], 
                 main_df['Volume_target'][-1],
                np.NaN,
                np.NaN,
                np.NaN,
                np.NaN,
-               np.NaN,
+            #   np.NaN,
                np.NaN]
 
         main_df.loc[new_date] = new_case
@@ -401,7 +491,9 @@ elif option == 'Random Forest':
 
     # print forecasts
     st.markdown("### Forecasts made by: "+option)
-    st.dataframe(forecasted_df[["Open", "High", "Low", "Close", "Adj Close", "Volume"]].tail(days_for_forecasting))
+    #st.dataframe(forecasted_df[["Open", "High", "Low", "Close", "Adj Close", "Volume"]].tail(days_for_forecasting))
+
+    st.dataframe(forecasted_df[["Open", "High", "Low", "Close", "Volume"]].tail(days_for_forecasting))
 
 
     # Visualise Forecasts
@@ -431,13 +523,15 @@ elif option == 'Random Forest':
 
 
 elif option == 'XGBoost':
-    forecasted_df = simulate_randon_forest_forecasting(main_df.copy(), days_for_forecasting)
+    forecasted_df = simulate_xgboost_forecasting(main_df.copy(), days_for_forecasting)
 
     forecasted_df.tail(days_for_forecasting)
 
     # print forecasts
     st.markdown("### Forecasts made by: "+option)
-    st.dataframe(forecasted_df[["Open", "High", "Low", "Close", "Adj Close", "Volume"]].tail(days_for_forecasting))
+    #st.dataframe(forecasted_df[["Open", "High", "Low", "Close", "Adj Close", "Volume"]].tail(days_for_forecasting))
+
+    st.dataframe(forecasted_df[["Open", "High", "Low", "Close", "Volume"]].tail(days_for_forecasting))
 
 
     # Visualise Forecasts
