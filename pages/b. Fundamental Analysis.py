@@ -20,6 +20,7 @@ def get_stock_data(ticker):
 st.markdown("# Fundamental Analysis of Stock 🗂️")
 
 # Display the stock data
+st.markdown("###### Fundamental analysis is a method used to evaluate the intrinsic value of an asset, such as a stock or cryptocurrency, by examining related economic, financial, and other qualitative and quantitative factors. It involves analyzing a company’s financial statements, industry trends, and overall economic conditions to determine whether an asset is overvalued or undervalued. This approach is commonly used by long-term investors to make informed decisions based on the true performance and potential of a business.")
 st.write(f"Displaying fundamental analysis for {ticker_symbol}")
 
 try:

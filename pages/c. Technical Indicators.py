@@ -73,6 +73,7 @@ available_indicators = ['Moving Average', 'Exponential Moving Average', 'RSI', '
 selected_indicators = st.sidebar.multiselect('Select Indicators', available_indicators)
 
 # Display the stock data
+st.markdown("###### Technical indicators are mathematical calculations based on price, volume, or open interest of a security, used to analyze and predict future market trends. Commonly applied in technical analysis, these indicators help traders identify patterns, trends, momentum, and potential reversal points. Popular examples include Moving Averages (MA), Relative Strength Index (RSI), Moving Average Convergence Divergence (MACD), and Bollinger Bands. By interpreting these signals, traders aim to optimize entry and exit points in the market.")
 st.write(f"Displaying the flactuations of closing price for {ticker_symbol} stock")
 
 try:
