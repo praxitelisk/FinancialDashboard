@@ -22,7 +22,7 @@ def fetch_news(api_key, query):
 def main():
     st.title('Stock News Search App 📰')
     st.markdown(
-    """###### This page allows users to search for the latest news related to specific stocks or companies. By entering a ticker symbol or company name, users can retrieve recent headlines and summaries from trusted news sources, helping them stay informed about market-moving events."""
+    """###### This page allows users to search for the latest news related to specific stocks or companies. By entering a keyword or company name, users can retrieve recent headlines and summaries from trusted news sources, helping them stay informed about market-moving events."""
 )
 
     st.sidebar.header("Stock News search 👇")
