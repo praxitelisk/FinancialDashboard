@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import tabulate
 
 
 st.set_page_config(page_title="Stock News", page_icon="📰")
