@@ -11,6 +11,7 @@ st.title("Credits Page")
 st.write("This project was made possible thanks to the following libraries and tools:")
 
 # Data for the table
+# Data for the table
 data = {
     "Library/Tool": ["Streamlit", "Python", "Scikit-Learn", "YFinance", "Pandas", "News-API"],
     "Description": [
@@ -20,14 +21,22 @@ data = {
         "A library for accessing financial data.",
         "A data manipulation and analysis library.",
         "A service for fetching news data."
+    ],
+    "Website": [
+        "[Streamlit](https://streamlit.io/)",
+        "[Python](https://www.python.org/)",
+        "[Scikit-Learn](https://scikit-learn.org/)",
+        "[YFinance](https://pypi.org/project/yfinance/)",
+        "[Pandas](https://pandas.pydata.org/)",
+        "[News-API](https://newsapi.org/)"
     ]
 }
 
-# Create a DataFrame
+# Convert to DataFrame
 df = pd.DataFrame(data)
 
-# Display the table
-st.table(df)
+# Display the table as Markdown
+st.markdown(df.to_markdown(index=False), unsafe_allow_html=True)
 
 # Additional text
 st.write("We are grateful for the developers and maintainers of these amazing libraries and tools.")
