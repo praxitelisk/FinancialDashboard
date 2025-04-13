@@ -44,7 +44,12 @@ dates = st.sidebar.date_input(
 with st.container():
     st.markdown("# Inspecting Stock Data")
     st.write(
-    """This page illustrates pertinent information regarding financial assets and plotting with Streamlit."""
+    """This page illustrates pertinent information regarding financial assets and plotting with Streamlit.
+It provides an interactive interface to explore detailed financial data for selected stocks or other assets. Users can view key company information retrieved via stock.info, including a summary of the company's profile, market cap, sector, and financial ratios. The page also displays historical price data, such as Open, High, Low, Close, and Volume, allowing users to analyze past market performance.
+
+To better understand price behavior and trends, the application includes visualizations like univariate plots (e.g., line plots of closing prices, histograms of volume) and bivariate plots (e.g., scatter plots comparing volume with price movements). These dynamic plots enable both casual and more technical users to gain insights into asset performance, all in an intuitive and streamlined environment powered by Streamlit.
+
+"""
 )
  
 equity_name =  tickers.tickers[ticker_symbol].info['shortName']
